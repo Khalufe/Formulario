@@ -2,6 +2,7 @@
     var self = this
     self.show = ko.observable(true);
     self.age = ko.observable(0);
+    self.people = ko.mapping.fromJS([]);
 
     self.formulario = ko.mapping.fromJS(
         {
@@ -69,6 +70,36 @@
          self.show(true);
     }
 
+    self.getData = function () {
+
+        var response=  $.ajax({
+            url: 'localhost:44391/api/values',
+            type: 'GET',
+            crossDomain: true,
+            headers: {
+                contentType: "application/json",
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "*",
+                "Access-Control-Allow-Headers": "*"
+
+            },
+
+
+            success: function (data) {
+                //called when successful
+                ko.mapping.fromJS(data, self.people);
+
+             
+            },
+            error: function (e) {
+                //called when there is an error
+                //console.log(e.message);
+            }
+        });
+        $.when(response).done(function () {
+            console.log(ko.mapping.toJS(self.people));
+        })
+    }
 }
 
 ko.applyBindings(Model);

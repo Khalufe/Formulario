@@ -3,6 +3,7 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
     <hr />
+     <button class="btn btn-primary" data-bind="click: getData">Ejemplo</button>
     <div data-bind="visible:show()">
         <h2>Ingreso de datos</h2>
 
